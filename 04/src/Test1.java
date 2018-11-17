@@ -2,6 +2,8 @@ public class Test1 {
     public static void main(String[] args) {
         Person p1 = new Person();
 //        Person p2 = new Person();
+
+        Person p3;
         p1.name="zhangsan";
         p1.eat();
 
