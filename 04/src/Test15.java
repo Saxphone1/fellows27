@@ -33,7 +33,7 @@ class ChickenManage{
     }
     //增加鸡
     public void add(Chicken c){
-        if(ck.length == count+1){
+        if(ck.length == count){
             //增加自己的一半    len * 3 / 2 + 1;
             //增加自己1倍 len * 2;
             ck = Arrays.copyOf(ck,ck.length * 2);
