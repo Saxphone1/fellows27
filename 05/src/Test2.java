@@ -9,7 +9,7 @@ public class Test2 {
 //        cm.add(new Cosmetic("郁美净","国产",5));
 //        cm.show();
 
-        SortCosmeticManager cm = new SortCosmeticManager();
+        importCosmeticManager cm = new importCosmeticManager();
         cm.add(new Cosmetic("雅诗兰黛","进口",1000));
         cm.add(new Cosmetic("香奈儿","进口",800));
         cm.add(new Cosmetic("大宝","国产",20));
@@ -17,6 +17,17 @@ public class Test2 {
         cm.show();
 
     }
+}
+class importCosmeticManager extends CosmeticManager{
+    public void show(){
+        for (int i=0;i<count;i++) {
+            if(cs[i].getType().equals("进口")){
+                cs[i].print();
+            }
+        }
+
+    }
+
 }
 class SortCosmeticManager extends CosmeticManager{
     public void show(){

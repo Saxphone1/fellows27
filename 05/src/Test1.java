@@ -10,6 +10,7 @@ public class Test1 {
         hd.print();
         hd.eat();
         hy.eat();
+        hd.fn(2);
     }
 }
 class Cat{
@@ -31,6 +32,10 @@ class HomeDog extends Dog{
     public HomeDog(){
         super("jiagou");
         System.out.println("我是homedog的构造方法");
+    }
+    public void fn(final int size){
+//        size++;
+        System.out.println(size);
     }
 
     public void print(){
