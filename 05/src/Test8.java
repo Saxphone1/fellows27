@@ -1,7 +1,8 @@
 public class Test8 {
     public static void main(String[] args) {
         ISave is = new NetSave();
-        UserService bs = new UserService(is);
+        UserService bs = new UserService();
+        bs.setIsave(is);
         bs.save("user");
 //        bs.save("user");
     }
@@ -22,22 +23,19 @@ class NetSave extends ISave{
     }
 }
 
-interface BaseService{
-    public void save(String data);
-}
-class UserService implements BaseService{
+abstract class BaseService{
     public ISave isave;
-    public UserService(ISave isave){
+    public void setIsave(ISave isave){
         this.isave = isave;
     }
     public void save(String data) {
         isave.save(data);
     }
+}
+class UserService extends BaseService{
 
 }
 
-class StudentService implements BaseService{
-    public void save(String data) {
-//        System.out.println("保存到文件中"+data);
-    }
+class StudentService extends BaseService{
+
 }
