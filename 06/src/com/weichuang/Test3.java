@@ -10,11 +10,12 @@ public class Test3 {
     public static void main(String[] args) {
         User u = new User();
         UserBean ub = new UserBean();
-        ub.setName("admin");
+        ub.setName("sss");
         ub.setPwd("1234");
         try{
             u.login(ub);
         }catch (MyException e){
+            //e.printStackTrace();
             System.out.println("sssss");
         }
     }

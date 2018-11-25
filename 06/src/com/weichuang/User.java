@@ -1,11 +1,10 @@
 package com.weichuang;
 
 public class User extends UserService{
-    public void login(UserBean userBean) {
+    public void login(UserBean userBean) throws MyException{
 
         if(!"admin".equals(userBean.getName())){
             throw new MyException("用户名错误");
-
         }
         if(!"1234".equals(userBean.getPwd())){
             throw new MyException("密码错误");
