@@ -3,6 +3,7 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
+//-Dfile.encoding=UTF-8
 public class Test4 {
     public static void main(String[] args) {
         Locale l1 = new Locale("zh","CN");
