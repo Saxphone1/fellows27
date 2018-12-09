@@ -13,12 +13,13 @@ public class ConcreteAggregate implements MyList{
         size++;
     }
     public Object get(int index){
+
         return elements[index];
     }
     public Iterator iterator(){
         return new ConcreteIterator(this);
     }
-    public int getSize(){
+    public int Size(){
         return size;
     }
 

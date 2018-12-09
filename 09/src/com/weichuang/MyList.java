@@ -4,5 +4,5 @@ interface MyList{
     public void add(Object e);
     public Object get(int index);
     public Iterator iterator();
-    public int getSize();
+    public int Size();
 }

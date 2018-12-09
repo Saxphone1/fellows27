@@ -8,7 +8,7 @@ public class ConcreteIterator implements Iterator{
         this.list = list;
     }
     public boolean hasNext(){
-        if(index>=list.getSize()){
+        if(index>=list.Size()){
             return false;
         }else{
             return true;
