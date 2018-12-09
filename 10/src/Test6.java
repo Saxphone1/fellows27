@@ -7,7 +7,6 @@ public class Test6 {
         Thread t2 = new Thread(c);
         t1.start();
         t2.start();
-
     }
 }
 
@@ -70,6 +69,8 @@ class Food{
             e.printStackTrace();
         }
         this.setDesc(desc);
+        flag = false;//变成可以消费
+        this.notify();
     }
     //消费产品
     public synchronized void get(){
@@ -88,7 +89,7 @@ class Food{
         }
         System.out.println(this.name+"->"+this.getDesc());
         this.flag = true;//变成可以生产
-        this.notifyAll();
+        this.notify();
     }
 
     public String getName() {
