@@ -1,7 +1,26 @@
+package com.weichuang;
+
 public class Dog {
     private String name;
     private int age;
     private String color;
+    public String type;
+
+
+    private void set(){
+        System.out.println("seting...");
+    }
+    protected void get(){
+        System.out.println("getting...");
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getName() {
         return name;
@@ -38,7 +57,7 @@ public class Dog {
 
     @Override
     public String toString() {
-        return "Dog{" +
+        return "com.weichuang.Dog{" +
                 "name='" + name + '\'' +
                 ", age=" + age +
                 ", color='" + color + '\'' +
