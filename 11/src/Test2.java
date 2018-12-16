@@ -17,7 +17,7 @@ public class Test2 {
         Method[] declaredMethods = dogClass.getDeclaredMethods();
         for (int i = 0; i <declaredMethods.length ; i++) {
             if(declaredMethods[i].getName().equals("set")){
-                // 去掉修饰符
+                // 去掉修饰符，可以访问私有方法
                 declaredMethods[i].setAccessible(true);
                 try {
                     declaredMethods[i].invoke(dog);
