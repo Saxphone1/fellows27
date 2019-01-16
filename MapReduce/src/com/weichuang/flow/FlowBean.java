@@ -7,7 +7,7 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 
-public class FlowBean implements WritableComparable<FlowBean>{
+public class FlowBean implements Writable{
     private long upFlow;//上行流量
     private long downFlow;//下行流量
     private long totalFlow;//总流量
@@ -65,8 +65,4 @@ public class FlowBean implements WritableComparable<FlowBean>{
         return upFlow +"\t" + downFlow +"\t" + totalFlow+"\n";
     }
 
-    @Override
-    public int compareTo(FlowBean fb) {
-        return (int)this.totalFlow - (int)fb.totalFlow>0?-1:1;
-    }
 }
