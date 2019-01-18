@@ -17,7 +17,10 @@ public class TableReducer extends Reducer<Text,TableBean,TableBean,NullWritable>
             if("1".equals(tb.getFlag())){
                 name = tb.getpName();
             }else{
-                beans.add(tb);
+                TableBean t1 = new TableBean();
+                t1.setOrderId(tb.getOrderId());
+                t1.setAmount(tb.getAmount());
+                beans.add(t1);
             }
         }
         for(TableBean t:beans){
