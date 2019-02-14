@@ -1,3 +1,25 @@
+7）JVM堆内存溢出
+描述：java.lang.OutOfMemoryError: Java heap space
+解决：在yarn-site.xml中加入如下代码
+<property>
+	<name>yarn.scheduler.maximum-allocation-mb</name>
+	<value>2048</value>
+</property>
+<property>
+  	<name>yarn.scheduler.minimum-allocation-mb</name>
+  	<value>2048</value>
+</property>
+<property>
+	<name>yarn.nodemanager.vmem-pmem-ratio</name>
+	<value>2.1</value>
+</property>
+<property>
+	<name>mapred.child.java.opts</name>
+	<value>-Xmx1024m</value>
+</property>
+
+
+
 1.统计视频观看数Top10
 
 select *
