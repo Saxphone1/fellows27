@@ -1,0 +1,116 @@
+1.统计视频观看数Top10
+
+select *
+from gulivideo_orc
+order by views desc
+limit 10;
+
+2 统计视频类别热度Top10
+
+select videoId,views,category_name
+from gulivideo_orc
+lateral view explode(category) table_tmp as category_name
+limit 50; //t1
+
+select category_name,count(*) num
+from (select videoId,views,category_name
+from gulivideo_orc
+lateral view explode(category) table_tmp as category_name
+limit 50) t1
+group by category_name; //t2
+
+select category_name,num
+from (select category_name,count(*) num
+from (select videoId,views,category_name
+from gulivideo_orc
+lateral view explode(category) table_tmp as category_name) t1
+group by category_name) t2
+order by num desc
+limit 10;
+
+
+3 统计出视频观看数最高的20个视频的所属类别
+以及类别包含Top20视频的个数
+
+select videoId,views,category
+from gulivideo_orc
+order by views desc
+limit 20; //t1
+
+
+select videoId,category_name
+from t1
+lateral view explode(category) table_tmp as category_name //t2
+
+
+select category_name,count(*) num
+from (
+	select videoId,category_name
+	from (select videoId,views,category
+			from gulivideo_orc
+		order by views desc
+limit 20)t1
+lateral view explode(category) table_tmp as category_name)t2
+group by category_name
+order by num desc;
+
+4 统计视频观看数Top50所关联视频的所属类别Rank
+
+select videoId,views,relatedId
+from gulivideo_orc
+order by views desc
+limit 50; //t1
+
+select videoId,related_name
+from t1
+lateral view explode(relatedId) t_related as related_name //t2
+
+select t2.related_name,t3.category
+from t2 left join gulivideo_orc t3
+on t2.related_name=t3.videoId  // t4
+
+select related_name,category_name
+from t4
+lateral view explode(category) t_category as category_name //t5;
+
+select category_name,count(*)
+from (select related_name,category_name
+from (select t2.related_name,t3.category
+from (select videoId,related_name
+from (select videoId,views,relatedId
+from gulivideo_orc
+order by views desc
+limit 50)t1
+lateral view explode(relatedId) t_related as related_name)t2 left join gulivideo_orc t3
+on t2.related_name=t3.videoId)t4
+lateral view explode(category) t_category as category_name)t5
+group by category_name;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
