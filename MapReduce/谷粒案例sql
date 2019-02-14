@@ -109,6 +109,68 @@ lateral view explode(category) t_category as category_name)t5
 group by category_name;
 
 
+5 统计每个类别中的视频热度Top10，以Music为例
+
+select videoId,views
+from gulivideo_category
+where categoryId="Music"
+order by views desc
+limit 10;
+
+6 统计每个类别中视频流量Top10，以Music为例
+
+select videoId,ratings
+from gulivideo_category
+where categoryId="Music"
+order by ratings desc
+limit 10;
+
+
+7 统计上传视频最多的用户Top10以及他们上传的观看次数在前20的视频
+
+select uploader,videos
+from gulivideo_user_orc
+order by videos desc
+limit 10; t1
+
+select t1.uploader,videoId,views
+from (select uploader,videos
+      from gulivideo_user_orc
+      order by videos desc
+      limit 10)t1 left join gulivideo_orc t2
+on t1.uploader=t2.uploader
+order by views desc
+limit 20;
+
+7.1
+select uploader,videos
+from gulivideo_user_orc
+order by videos desc
+limit 10; t1
+
+select uploader,views,videoId
+from gulivideo_orc
+order by views desc
+limit 20; t2
+
+select t1.uploader,views,videoId
+from (select uploader,videos
+      from gulivideo_user_orc
+      order by videos desc
+      limit 10)t1 inner join (select uploader,views,videoId
+                              from gulivideo_orc
+                              order by views desc
+                              limit 20)t2
+on t1.uploader=t2.uploader;
+
+
+8 统计每个类别视频观看数Top10
+
+
+
+
+
+
 
 
 
