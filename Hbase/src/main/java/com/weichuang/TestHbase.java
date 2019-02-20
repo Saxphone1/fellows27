@@ -1,5 +1,6 @@
 package com.weichuang;
 
+import org.apache.avro.generic.GenericData;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.HColumnDescriptor;
@@ -87,6 +88,15 @@ public class TestHbase {
 
     }
 
+    public static void deleteData(String tableName,String... rows) throws IOException {
+        Table table = connection.getTable(TableName.valueOf(tableName));
+        List<Delete> dels = new ArrayList<>();
+        for (String row : rows) {
+            Delete del = new Delete(row.getBytes());
+            dels.add(del);
+        }
+        table.delete(dels);
+    }
 
 
     public static void main(String[] args) throws IOException {
@@ -95,6 +105,7 @@ public class TestHbase {
 
 //        createTable("teacher","info");
 //        deleteTable("teacher");
-        putData("student","1001","info","name","lisi");
+//        putData("student","1001","info","name","lisi");
+        deleteData("student","1001");
     }
 }
