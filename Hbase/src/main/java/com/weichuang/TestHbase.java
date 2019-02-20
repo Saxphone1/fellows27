@@ -5,11 +5,11 @@ import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.HColumnDescriptor;
 import org.apache.hadoop.hbase.HTableDescriptor;
 import org.apache.hadoop.hbase.TableName;
-import org.apache.hadoop.hbase.client.Connection;
-import org.apache.hadoop.hbase.client.ConnectionFactory;
-import org.apache.hadoop.hbase.client.HBaseAdmin;
+import org.apache.hadoop.hbase.client.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestHbase {
 
@@ -53,12 +53,48 @@ public class TestHbase {
 
     }
 
+    public static void deleteTable(String tableName) throws IOException {
+
+        if(!isTableExist(tableName)){
+            return;
+        }
+        admin.disableTable(TableName.valueOf(tableName));
+        admin.deleteTable(TableName.valueOf(tableName));
+
+    }
+
+    public static void putData(String tableName,String key,String cf,String cn,String value) throws IOException {
+
+//        HTable table = new HTable(conf,TableName.valueOf(tableName));
+        Table table = connection.getTable(TableName.valueOf(tableName));
+
+        Put p = new Put(key.getBytes());
+        p.addColumn(cf.getBytes(),cn.getBytes(),value.getBytes());
+        p.addColumn(cf.getBytes(),"sex".getBytes(),"male".getBytes());
+        p.addColumn(cf.getBytes(),"age".getBytes(),"18".getBytes());
+
+        Put p2 = new Put("1002".getBytes());
+        p2.addColumn(cf.getBytes(),cn.getBytes(),value.getBytes());
+        p2.addColumn(cf.getBytes(),"sex".getBytes(),"male".getBytes());
+        p2.addColumn(cf.getBytes(),"age".getBytes(),"18".getBytes());
+
+        List<Put> list = new ArrayList<>();
+        list.add(p);
+        list.add(p2);
+
+        table.put(list);
+
+
+    }
+
 
 
     public static void main(String[] args) throws IOException {
 //        System.out.println(isTableExist("student"));
 //        System.out.println(isTableExist("student111"));
 
-        createTable("teacher","info");
+//        createTable("teacher","info");
+//        deleteTable("teacher");
+        putData("student","1001","info","name","lisi");
     }
 }
