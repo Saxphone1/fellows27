@@ -2,11 +2,9 @@ package com.weichuang;
 
 import org.apache.avro.generic.GenericData;
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.hbase.HBaseConfiguration;
-import org.apache.hadoop.hbase.HColumnDescriptor;
-import org.apache.hadoop.hbase.HTableDescriptor;
-import org.apache.hadoop.hbase.TableName;
+import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.*;
+import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -98,6 +96,41 @@ public class TestHbase {
         table.delete(dels);
     }
 
+    public static void scanTable(String tableName) throws IOException {
+        Table table = connection.getTable(TableName.valueOf(tableName));
+        Scan sc = new Scan();
+        ResultScanner scanner = table.getScanner(sc);//存的是每条数据
+        for (Result result : scanner) {
+            Cell[] cells = result.rawCells();
+            for (Cell cell : cells) {
+                System.out.println("key:" + Bytes.toString(CellUtil.cloneRow(cell)) + ",fam:" + Bytes.toString(CellUtil.cloneFamily(cell))
+                        + ",Qualifier:" + Bytes.toString(CellUtil.cloneQualifier(cell)) + ",val:" + Bytes.toString(CellUtil.cloneValue(cell)));
+            }
+        }
+    }
+
+    public static void getRow(String tableName,String rowkey) throws IOException {
+        Table table = connection.getTable(TableName.valueOf(tableName));
+        Get g = new Get(rowkey.getBytes());
+        Result result = table.get(g);
+        Cell[] cells = result.rawCells();
+        for (Cell cell : cells) {
+            System.out.println("key:" + Bytes.toString(CellUtil.cloneRow(cell)) + ",fam:" + Bytes.toString(CellUtil.cloneFamily(cell))
+                    + ",Qualifier:" + Bytes.toString(CellUtil.cloneQualifier(cell)) + ",val:" + Bytes.toString(CellUtil.cloneValue(cell)));
+        }
+    }
+    public static void getQualifier(String tableName,String rowkey,String cf,String cn) throws IOException {
+        Table table = connection.getTable(TableName.valueOf(tableName));
+        Get g = new Get(rowkey.getBytes());
+        g.addColumn(cf.getBytes(),cn.getBytes());
+        Result result = table.get(g);
+        Cell[] cells = result.rawCells();
+        for (Cell cell : cells) {
+            System.out.println("key:" + Bytes.toString(CellUtil.cloneRow(cell)) + ",fam:" + Bytes.toString(CellUtil.cloneFamily(cell))
+                    + ",Qualifier:" + Bytes.toString(CellUtil.cloneQualifier(cell)) + ",val:" + Bytes.toString(CellUtil.cloneValue(cell)));
+        }
+    }
+
 
     public static void main(String[] args) throws IOException {
 //        System.out.println(isTableExist("student"));
@@ -106,6 +139,9 @@ public class TestHbase {
 //        createTable("teacher","info");
 //        deleteTable("teacher");
 //        putData("student","1001","info","name","lisi");
-        deleteData("student","1001");
+//        deleteData("student","1001");
+//        scanTable("student");
+//        getRow("student","1002");
+        getQualifier("student","1002","info","name");
     }
 }
