@@ -70,4 +70,34 @@ public class WeiboUtil {
         }
         inTable.put(pl);
     }
+    public static void attendUser(String uid,String... attender) throws IOException {
+        Table conTable = connection.getTable(TableName.valueOf("weibo:content"));
+        Table userTable = connection.getTable(TableName.valueOf("weibo:users"));
+        Table inTable = connection.getTable(TableName.valueOf("weibo:inbox"));
+        //1.在user里面添加attends
+
+        Put p = new Put(uid.getBytes());
+        List<Put> userL = new ArrayList<>();
+        for (String s : attender) {//B C
+            p.addColumn("attends".getBytes(),s.getBytes(),s.getBytes());
+            //2 在user里面添加fans
+            Put p1 = new Put(s.getBytes());
+            p1.addColumn("fans".getBytes(),uid.getBytes(),uid.getBytes());
+            userL.add(p1);
+        }
+        userL.add(p);
+        userTable.put(userL);
+
+        //3.在inbox添加数据
+        Put inP = new Put(uid.getBytes());
+        for (String s : attender) {
+            Scan scan = new Scan(s.getBytes(),(s+"|").getBytes());
+            ResultScanner scanner = conTable.getScanner(scan);
+            for (Result result : scanner) {
+                byte[] rowkey = result.getRow();//rowkey
+                inP.addColumn("info".getBytes(),s.getBytes(),rowkey);
+            }
+        }
+        inTable.put(inP);
+    }
 }

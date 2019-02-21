@@ -12,6 +12,13 @@ public class Weibo {
     }
     public static void main(String[] args) throws IOException {
         init();
-        WeiboUtil.putContent("1001","nice!!!");
+//        WeiboUtil.putContent("A","nice!!!");
+//        WeiboUtil.putContent("B","B1!!!");
+//        WeiboUtil.putContent("C","C1!!!");
+//        WeiboUtil.putContent("A","nice!!!");
+//        WeiboUtil.putContent("B","B2!!!");
+//        WeiboUtil.putContent("B","B3!!!");
+//        WeiboUtil.attendUser("A","B","C");
+        WeiboUtil.putContent("C","C1111111!!!");
     }
 }
