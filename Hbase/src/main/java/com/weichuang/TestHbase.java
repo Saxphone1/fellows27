@@ -73,6 +73,7 @@ public class TestHbase {
         p.addColumn(cf.getBytes(),"age".getBytes(),"18".getBytes());
 
         Put p2 = new Put("1002".getBytes());
+
         p2.addColumn(cf.getBytes(),cn.getBytes(),value.getBytes());
         p2.addColumn(cf.getBytes(),"sex".getBytes(),"male".getBytes());
         p2.addColumn(cf.getBytes(),"age".getBytes(),"18".getBytes());
