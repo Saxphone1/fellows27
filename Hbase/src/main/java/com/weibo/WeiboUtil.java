@@ -100,4 +100,27 @@ public class WeiboUtil {
         }
         inTable.put(inP);
     }
+
+    public static void removeUser(String uid,String user) throws IOException {
+        Table userTable = connection.getTable(TableName.valueOf("weibo:users"));
+        Table inTable = connection.getTable(TableName.valueOf("weibo:inbox"));
+        //1.移除user uid行attends列族user列
+
+        Delete del = new Delete(uid.getBytes());
+        List<Delete> dList = new ArrayList<>();
+        del.addColumn("attends".getBytes(),user.getBytes());
+        dList.add(del);
+
+        //2.移除user user行fans列族uid列
+        Delete del1 = new Delete(user.getBytes());
+        del1.addColumn("fans".getBytes(),uid.getBytes());
+        dList.add(del1);
+        userTable.delete(dList);
+
+
+        //3.移除inbox uid行user列
+        Delete del2 = new Delete(uid.getBytes());
+        del2.addColumn("info".getBytes(),user.getBytes());
+        inTable.delete(del2);
+    }
 }
