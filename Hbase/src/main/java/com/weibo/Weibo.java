@@ -21,6 +21,7 @@ public class Weibo {
 //        WeiboUtil.attendUser("A","E");
 //        WeiboUtil.attendUser("A","F");
 //        WeiboUtil.putContent("C","C1111111!!!");
-        WeiboUtil.removeUser("A","E");
+//        WeiboUtil.removeUser("A","E");
+          WeiboUtil.showContent("A");
     }
 }

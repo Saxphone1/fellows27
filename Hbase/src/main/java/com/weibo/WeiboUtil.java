@@ -3,6 +3,7 @@ package com.weibo;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.*;
 import org.apache.hadoop.hbase.client.*;
+import org.apache.hadoop.hbase.util.Bytes;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -122,5 +123,27 @@ public class WeiboUtil {
         Delete del2 = new Delete(uid.getBytes());
         del2.addColumn("info".getBytes(),user.getBytes());
         inTable.delete(del2);
+    }
+    public static void showContent(String uid) throws IOException {
+        Table conTable = connection.getTable(TableName.valueOf("weibo:content"));
+        Table inTable = connection.getTable(TableName.valueOf("weibo:inbox"));
+        Get g = new Get(uid.getBytes());
+        g.setMaxVersions();
+        Result result = inTable.get(g);
+
+        Cell[] cells = result.rawCells();
+        List<Get> gList = new ArrayList<>();
+        for (Cell cell : cells) {
+            byte[] bytes = CellUtil.cloneValue(cell);//uid_ts
+            Get conGet = new Get(bytes);
+            gList.add(conGet);
+        }
+        Result[] results = conTable.get(gList);
+        for (Result result1 : results) {
+            Cell[] cells1 = result1.rawCells();
+            for (Cell cell : cells1) {
+                System.out.println("content:"+ Bytes.toString(CellUtil.cloneValue(cell)));
+            }
+        }
     }
 }
