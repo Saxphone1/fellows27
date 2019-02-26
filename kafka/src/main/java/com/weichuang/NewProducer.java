@@ -5,6 +5,8 @@ package com.weichuang;
 import kafka.tools.ConsoleProducer;
 import org.apache.kafka.clients.producer.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class NewProducer {
@@ -19,6 +21,13 @@ public class NewProducer {
         // value序列化
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
 
+        List<String> interceptor = new ArrayList();
+        interceptor.add("com.weichuang.TimeInterceptor");
+        interceptor.add("com.weichuang.CounterInterceptor");
+
+
+        props.put("interceptor.classes",interceptor);
+
         KafkaProducer producer = new KafkaProducer(props);
         for(int i=0;i<10;i++){
             ProducerRecord record = new ProducerRecord("second", String.valueOf(i));
@@ -26,7 +35,7 @@ public class NewProducer {
                 @Override
                 public void onCompletion(RecordMetadata metadata, Exception exception) {
                     if(exception == null){
-                        System.out.printf(metadata.partition()+"=>>"+metadata.topic()+","+metadata.offset());
+                        System.out.println(metadata.partition()+"=>>"+metadata.topic());
                     }else{
                         System.out.println("发送失败！！！");
                     }
