@@ -28,7 +28,7 @@ public class WordCountDriver {
         job.setOutputKeyClass(Text.class);
         job.setOutputValueClass(IntWritable.class);
         //6 设置输入输出路径
-
+        job.setCombinerClass(WordCountReducer.class);
         job.setInputFormatClass(CombineTextInputFormat.class);
         CombineTextInputFormat.setMaxInputSplitSize(job, 4194304);// 4m
         CombineTextInputFormat.setMinInputSplitSize(job, 2097152);// 2m

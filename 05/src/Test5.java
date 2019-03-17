@@ -2,7 +2,7 @@ public class Test5 {
     public static void main(String[] args) {
         Girl g =  new Girl();
         g.eat();
-        g.print();
+//        g.print();
     }
 }
 interface IEat{
@@ -13,9 +13,9 @@ interface IEat{
 }
 interface ISleep extends IEat{
     void sleep();
-    public default void print(){
-        System.out.println("print.....");
-    }
+//    public default void print(){
+//        System.out.println("print.....");
+//    }
 }
 
 interface IRun extends IEat,ISleep{

@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Properties;
 
 public class NewProducer {
+
     public static void main(String[] args) {
         Properties props = new Properties();
         // 等待所有副本节点的应答
@@ -24,6 +25,8 @@ public class NewProducer {
         List<String> interceptor = new ArrayList();
         interceptor.add("com.weichuang.TimeInterceptor");
         interceptor.add("com.weichuang.CounterInterceptor");
+
+
 
 
         props.put("interceptor.classes",interceptor);

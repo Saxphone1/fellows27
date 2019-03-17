@@ -31,6 +31,7 @@ public class CustomNewConsumer {
             ConsumerRecords<String, String> consumerRecords = consumer.poll(100);
             for (ConsumerRecord<String, String> consumerRecord : consumerRecords) {
                 System.out.println(consumerRecord.partition()+","+consumerRecord.value());
+
             }
         }
     }

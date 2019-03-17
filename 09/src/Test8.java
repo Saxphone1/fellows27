@@ -7,7 +7,7 @@ public class Test8 {
         qu.add("aa");
         qu.add("bb");
         qu.add("cc");
-        qu.forEach(System.out::println);
+//        qu.forEach(System.out::println);
         System.out.println(qu.poll());
         System.out.println(qu.poll());
         System.out.println(qu.poll());

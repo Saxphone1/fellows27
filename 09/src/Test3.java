@@ -1,5 +1,5 @@
 import java.util.*;
-import java.util.function.Consumer;
+//import java.util.function.Consumer;
 
 public class Test3 {
     public static void main(String[] args) {
@@ -18,7 +18,7 @@ public class Test3 {
 //            System.out.println(str);
 //        };
 
-        c.forEach(str-> System.out.println(str));
+//        c.forEach(str-> System.out.println(str));
 //        c.forEach(System.out::println);
     }
 

@@ -55,8 +55,8 @@ class BinaryTree{
                     this.right.addNode(data);
                 }
             }
-
         }
+
         public void print(){
             if(this.left != null){
                 this.left.print();
@@ -65,7 +65,6 @@ class BinaryTree{
             if(this.right != null){
                 this.right.print();
             }
-
         }
         @Override
         public String toString() {
