@@ -45,6 +45,12 @@
             <artifactId>spark-sql_2.11</artifactId>
             <version>${spark.version}</version>
         </dependency>
+    <!-- 导入spark的依赖 -->
+        <dependency>
+              <groupId>org.apache.spark</groupId>
+              <artifactId>spark-streaming_2.11</artifactId>
+              <version>${spark.version}</version>
+          </dependency>
 
         <!-- mysql的连接驱动依赖 -->
         <dependency>
